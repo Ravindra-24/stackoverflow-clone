@@ -10,7 +10,7 @@ const HomeMainbar = () => {
   const navigate = useNavigate()
 
   var questionsList = [{ 
-        _id: 1,
+        id: 1,
         upVotes: 3,
         downVotes: 2,
         noOfAnswers: 2,
@@ -27,7 +27,7 @@ const HomeMainbar = () => {
             userId: 2,
         }]
     },{ 
-        _id: 2,
+        id: 2,
         upVotes: 3,
         downVotes: 2,
         noOfAnswers: 0,
@@ -44,7 +44,7 @@ const HomeMainbar = () => {
             userId: 2,
         }]
     },{ 
-        _id: 3,
+        id: 3,
         upVotes: 3,
         downVotes: 2,
         noOfAnswers: 0,
