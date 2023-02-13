@@ -1,11 +1,14 @@
-import React from "react";
-import { useParams, Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React,{useState} from "react";
+import { useParams, Link, useNavigate,useLocation } from "react-router-dom";
+import copy from 'copy-to-clipboard'
+import { useSelector , useDispatch} from "react-redux";
+import moment from 'moment'
 import upVotes from '../../assets/sort-up.svg'
 import downVotes from '../../assets/sort-down.svg'
 import Avatar from '../../components/Avatar/Avatar'
 import './Questions.css'
 import DisplayAnswer from "./DisplayAnswer";
+import {postAnswer, deleteQuestion} from '../../actions/question'
 
 
 const QuestionDetails = () => {
@@ -75,6 +78,34 @@ const QuestionDetails = () => {
 //       ],
 //     },
 //   ];
+const User = useSelector((state) => (state.currentUserReducer))
+const [answer, setAnswer] = useState('')
+const location = useLocation()
+const url = 'http://localhost:3000'
+const dispatch = useDispatch()
+const navigate = useNavigate()
+const handlePostAns = (e, answerLength)=>{
+    e.preventDefault()
+    if(!User === null){
+        alert('login or signup to answer a question')
+        navigate('/Auth')
+    }else{
+        if(answer === ''){
+            alert('Enter an answer before submitting')
+        }else{
+            dispatch(postAnswer({id, noOfAnswers:answerLength + 1, answerBody: answer, userAnswered: User.result.name}))
+        }
+    }
+}
+
+const handleShare = () =>{
+  copy(url + location.pathname)
+  alert('Copied URL :' +url+location.pathname)
+}
+
+const handleDelete = () =>{
+    dispatch(deleteQuestion(id, navigate))
+}
 
   return (  
   <div className="question-details-page">
@@ -104,11 +135,15 @@ const QuestionDetails = () => {
                                 </div>
                                 <div className="question-actions-user">
                                     <div>
-                                        <button type="button">Share</button>
-                                        <button type="button">Delete</button>
+                                        <button type="button" onClick={handleShare}>Share</button>
+                                        {
+                                             User?.result?._id === question?.userId && (
+                                             <button type='button' onClick={handleDelete}>Delete</button>
+                                             ) 
+                                         }
                                     </div>
                                     <div>
-                                        <p>asked {question.askedOn}</p>
+                                        <p>asked {moment(question.askedOn).fromNow()}</p>
                                         <Link to={`/User/${question.userId}`} className='user-link' style={{color:'#0086d8'}}>
                                             <Avatar backgroundColor="orange" px='8px' py='5px'>{question.userPosted.charAt(0).toUpperCase()}</Avatar>
                                             <div>{question.userPosted}</div>
@@ -121,15 +156,15 @@ const QuestionDetails = () => {
                     {
                         question.noOfAnswers !== 0 && (
                             <section>
-                                <h3>{question.noOfAnswers} answers</h3>
-                                <DisplayAnswer key= {question._id} question={question}/>
+                                <h3>{question.noOfAnswers} Answers</h3>
+                                <DisplayAnswer key= {question._id} question={question} handleShare={handleShare}/>
                             </section>
                         )
                     }
                     <section className="post-ans-container">
                         <h3>Your Answer</h3>
-                        <form>
-                            <textarea name="" id="" cols="30" rows="10"></textarea><br />
+                        <form onSubmit={(e)=>{handlePostAns(e, question.answer.length)}}>
+                            <textarea name="" id="" cols="30" rows="10" onChange={e=>setAnswer(e.target.value)}></textarea><br />
                             <input type="submit" className="post-ans-btn" value='Post Your Answer'/>
                         </form>
                         <p>
