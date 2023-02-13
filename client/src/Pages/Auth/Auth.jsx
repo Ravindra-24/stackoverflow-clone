@@ -1,9 +1,33 @@
 import React, { useState } from 'react'
 import icon from '../../assets/icon.png'
+import { useDispatch } from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 import './Auth.css'
 import AboutAuth from './AboutAuth'
+import { signup, login } from '../../actions/auth' 
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    if(!email && !password){
+      alert('Enter email and password')
+    }
+    if(isSignup){
+      if(!name){
+      alert('Enter a name to continue')
+    }
+    dispatch(signup({name, email, password},navigate))
+  }else{
+    dispatch(login({email, password},navigate))
+  }
+}
 
   const handleSwitch = ()=> {
     setIsSignup(!isSignup)
@@ -14,25 +38,25 @@ const Auth = () => {
     {isSignup && <AboutAuth/>}
       <div className='auth-container-2'>
         {!isSignup && <img src={icon} alt='stack overflow' width='50px' className='login-logo'></img>}
-        <form>
+        <form onSubmit={handleSubmit}>
           {
             isSignup &&  (
             <label htmlFor='name'>
               <h4>Name</h4>
-              <input type='name' name='name' id='name'></input>
+              <input type='name' name='name' id='name' onChange={(e)=>{setName(e.target.value)}}></input>
             </label>
             )
           }
           <label htmlFor='email'>
               <h4>Email</h4>
-              <input type='email' name='email' id='email'></input>
+              <input type='email' name='email' id='email' onChange={(e)=>{setEmail(e.target.value)}}></input>
           </label>
           <label htmlFor='password'>
             <div style={{display: 'flex', justifyContent:'space-between'}}>
             <h4>Password</h4>
             {!isSignup && <p style={{color:'#007ac6', fontSize:'13px'}}>Forgot Password?</p>}
             </div>
-            <input type='password' name='password' id='password'></input>
+            <input type='password' name='password' id='password' onChange={(e)=>{setPassword(e.target.value)}}></input>
             {
               isSignup && (
                 <p style={{color:"#666767", fontSize:"13px"}}>
