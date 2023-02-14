@@ -129,7 +129,7 @@ const handleDownVote = () =>{
                         <div className="question-details-container-2">
                             <div className="question-votes">
                                 <img src={upVotes} alt="" width='18' className="votes-icon" onClick={handleUpVote}/>
-                                <p>{question.upVotes - question.downVotes}</p>
+                                <p>{question.upVote.length - question.downVote.length}</p>
                                 <img src={downVotes} alt="" width='18'className="votes-icon" onClick={handleDownVote}/>
                             </div>
                             <div style={{width: '100%'}}>
