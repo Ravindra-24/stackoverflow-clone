@@ -6,6 +6,7 @@ const API = axios.create({baseURL: 'http://localhost:5000'})
         if(localStorage.getItem('profile')) {
             req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem(('profile')).token)}`
         }
+        return req;
     })
 
 export const logIn = (authData) => API.post('/user/login',authData);
@@ -18,3 +19,6 @@ export const voteQuestion = (id, value, userId) => API.patch(`/questions/vote/${
 
 export const postAnswer = (id, noOfAnswers, answerBody, userAnswered, userId) => API.patch(`/answer/post/${id}`,{noOfAnswers, answerBody, userAnswered, userId})
 export const deleteAnswer = (id, answerId, noOfAnswers) => API.patch(`/answer/delete/${id}`,{id, answerId, noOfAnswers})
+
+
+export const getAllUsers = () => API.get('user/getAllUsers') 
