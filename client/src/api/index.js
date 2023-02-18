@@ -1,13 +1,13 @@
 import axios from "axios";
 
-const API = axios.create({baseURL: 'https://http-nodejs-production-5b32.up.railway.app'}) 
+const API = axios.create({ baseURL: 'https://http-nodejs-production-5b32.up.railway.app/'})
 
-    API.interceptors.request.use((req) => {
-        if(localStorage.getItem('profile')) {
-            req.headers.authorization = `Bearer ${localStorage.getItem('profile').token}`
-        }
-        return req;
-    })
+API.interceptors.request.use((req) => {
+    if(localStorage.getItem('Profile')){
+        req.headers.authorization = `Bearer ${JSON.parse(localStorage.getItem('Profile')).token}`
+    }
+    return req;
+})
 
 export const logIn = (authData) => API.post('/user/login',authData);
 export const signUp = (authData) => API.post('/user/signup',authData);
