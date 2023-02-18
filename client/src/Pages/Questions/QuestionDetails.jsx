@@ -81,7 +81,7 @@ const QuestionDetails = () => {
 const User = useSelector((state) => (state.currentUserReducer))
 const [answer, setAnswer] = useState('')
 const location = useLocation()
-const url = 'http://localhost:3000'
+const url = 'https://stackoverflow-clone-ravindra.vercel.app'
 const dispatch = useDispatch()
 const navigate = useNavigate()
 const handlePostAns = (e, answerLength)=>{
