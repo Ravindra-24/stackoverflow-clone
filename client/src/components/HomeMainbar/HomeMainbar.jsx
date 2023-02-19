@@ -7,10 +7,10 @@ import QuestionList from './QuestionList'
 const HomeMainbar = () => {
 
   const location = useLocation()
-  const user = 1;
+  const user = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate()
 
-  const questionsList = useSelector(state=>state.questionsReducer)
+  const questionsList = useSelector((state)=>state.questionsReducer)
 
   // var questionsList = [{ 
   //       id: 1,
