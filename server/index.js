@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 8081
 
 const DATABASE_URL = process.env.CONNECTION_URL
 
+mongoose.set('strictQuery', true);
 mongoose.connect(DATABASE_URL,{useNewUrlParser:true, useUnifiedTopology:true})
-.then(mongoose.strictQuery(true))
 .then(() => app.listen(PORT, ()=>{console.log(`server running on port ${PORT}`)}))
 .catch((err)=>console.log(err.message))
