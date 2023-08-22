@@ -14,14 +14,14 @@ app.use(express.urlencoded({limit:"30mb", extended:true}))
 app.use(cors());
 
 app.get('/',(req, res) => {
-    res.send("This is stack overflow clone API HELLO")
+    res.send("This is stack overflow clone Version 1.0.0")
 })
 
 app.use('/user', useRoutes)
 app.use('/questions', questionRoutes)
 app.use('/answer', answerRoutes)
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 8081
 
 const DATABASE_URL = process.env.CONNECTION_URL
 
