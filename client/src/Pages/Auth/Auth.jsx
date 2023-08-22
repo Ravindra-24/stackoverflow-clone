@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import './Auth.css'
 import AboutAuth from './AboutAuth'
 import { signup, login } from '../../actions/auth' 
+import { toast } from 'react-toastify'
 const Auth = () => {
   const [isSignup, setIsSignup] = useState(false)
   const [name, setName] = useState('')
@@ -17,12 +18,8 @@ const Auth = () => {
   const handleSubmit = (e) =>{
     e.preventDefault()
     if(!email && !password){
-      alert('Enter email and password')
-    }
-    if(isSignup){
-      if(!name){
-      alert('Enter a name to continue')
-    }
+      toast.error('Please fill all the fields')
+    }else if(isSignup){
     dispatch(signup({name, email, password},navigate))
   }else{
     dispatch(login({email, password},navigate))
@@ -43,20 +40,20 @@ const Auth = () => {
             isSignup &&  (
             <label htmlFor='name'>
               <h4>Name</h4>
-              <input type='name' name='name' id='name' onChange={(e)=>{setName(e.target.value)}}></input>
+              <input type='name' name='name' id='name' required onChange={(e)=>{setName(e.target.value)}}></input>
             </label>
             )
           }
           <label htmlFor='email'>
               <h4>Email</h4>
-              <input type='email' name='email' id='email' onChange={(e)=>{setEmail(e.target.value)}}></input>
+              <input type='email' name='email' id='email' required onChange={(e)=>{setEmail(e.target.value)}}></input>
           </label>
           <label htmlFor='password'>
             <div style={{display: 'flex', justifyContent:'space-between'}}>
             <h4>Password</h4>
             {!isSignup && <p style={{color:'#007ac6', fontSize:'13px'}}>Forgot Password?</p>}
             </div>
-            <input type='password' name='password' id='password' onChange={(e)=>{setPassword(e.target.value)}}></input>
+            <input type='password' name='password' id='password' required onChange={(e)=>{setPassword(e.target.value)}}></input>
             {
               isSignup && (
                 <p style={{color:"#666767", fontSize:"13px"}}>

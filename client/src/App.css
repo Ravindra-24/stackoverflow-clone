@@ -14,3 +14,11 @@
     padding: 24px;
     box-sizing: border-box;
 }
+.not-allowed{
+    cursor: not-allowed;
+    text-decoration: solid white;
+    display: hidden;
+}
+
+
+
