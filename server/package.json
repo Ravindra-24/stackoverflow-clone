@@ -10,13 +10,20 @@
   "author": "Ravindra Pawar",
   "license": "ISC",
   "dependencies": {
+    "@mongodb-js/zstd": "^1.2.0",
+    "aws-crt": "^1.18.0",
+    "aws4": "^1.12.0",
     "bcryptjs": "^2.4.3",
+    "bson-ext": "^4.0.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "kerberos": "^2.0.2",
+    "mongodb-client-encryption": "^6.0.0",
     "mongoose": "^6.9.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "snappy": "^7.2.2"
   },
   "devDependencies": {
     "@babel/core": "7.16.0",
