@@ -21,6 +21,10 @@ app.use('/user', useRoutes)
 app.use('/questions', questionRoutes)
 app.use('/answer', answerRoutes)
 
+app.get('/keep-alive-endpoint', (req, res) => {
+    res.status(200).send('OK');
+})
+
 const PORT = process.env.PORT || 8081
 
 const DATABASE_URL = process.env.CONNECTION_URL
