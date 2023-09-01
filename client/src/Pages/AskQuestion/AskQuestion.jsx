@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {askQuestion} from '../../actions/question'
 
 
-const AskQuestion = () => {
+const AskQuestion = ({setProgress}) => {
 
   const [questionTitle, setQuestionTitle] = useState('')
   const [questionBody, setQuestionBody] = useState('')
@@ -18,7 +18,7 @@ const AskQuestion = () => {
 
   const handleSubmit = (e)=> {
       e.preventDefault()
-      dispatch(askQuestion({questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result?._id}, navigate))
+      dispatch(askQuestion({questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result?._id}, navigate, setProgress))
   }
 
   const handleEnter = (e) => {

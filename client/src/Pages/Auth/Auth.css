@@ -71,6 +71,15 @@ margin-top: 10px;
     transition: 0.2s;
     font-size: 13px;
     font-weight: 500;
+    /* height: 40px; */
+}
+
+.loader-svg{
+    width: 15px;
+    height: 15px;
+    margin-right:6px ;
+    animation: infinite;
+    display: inline;
 }
 
 .auth-btn:hover {

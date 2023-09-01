@@ -49,7 +49,7 @@ const Navbar = () => {
         {User === null ? 
             <Link to='/Auth' className='nav-item nav-link' >Log In</Link> :
              <>
-             <Avatar backgroundColor="#009dff" py="5px" px="10px" borderRadius="50%" color='white' cursor="pointer"><Link to={`/Users/${User?.result?._id}`} style={{color:'white', textDecoration:"none"}}>{User.result.name.charAt(0).toUpperCase()}</Link></Avatar>
+             <Avatar backgroundColor="#009dff" py="5px" px="10px" borderRadius="50%" color='white' cursor="pointer"><Link to={`/Users/${User?.result?._id}`} style={{color:'white', textDecoration:"none"}}>{User?.result?.name.charAt(0).toUpperCase()}</Link></Avatar>
              <button className='nav-item nav-link' onClick={handleLogout}>Log Out</button>
              </>
         }

@@ -11,7 +11,7 @@ import DisplayAnswer from "./DisplayAnswer";
 import {postAnswer, deleteQuestion, voteQuestion} from '../../actions/question'
 
 
-const QuestionDetails = () => {
+const QuestionDetails = ({setProgress}) => {
   const { id } = useParams()
 
   const questionsList = useSelector(state=>state.questionsReducer)
@@ -93,7 +93,8 @@ const handlePostAns = (e, answerLength)=>{
         if(answer === ''){
             alert('Enter an answer before submitting')
         }else{
-            dispatch(postAnswer({id, noOfAnswers:answerLength + 1, answerBody: answer, userAnswered: User.result.name, userId: User.result._id}))
+            dispatch(postAnswer({id, noOfAnswers:answerLength + 1, answerBody: answer, userAnswered: User.result.name, userId: User.result._id}, setProgress))
+            setAnswer('')
         }
     }
 }
@@ -104,7 +105,7 @@ const handleShare = () =>{
 }
 
 const handleDelete = () =>{
-    dispatch(deleteQuestion(id, navigate))
+    dispatch(deleteQuestion(id, navigate, setProgress))
 }
 
 const handleUpVote = () =>{
@@ -165,7 +166,7 @@ const handleDownVote = () =>{
                         question.noOfAnswers !== 0 && (
                             <section>
                                 <h3>{question.noOfAnswers} Answers</h3>
-                                <DisplayAnswer key= {question._id} question={question} handleShare={handleShare}/>
+                                <DisplayAnswer key= {question._id} question={question} handleShare={handleShare} setProgress={setProgress}/>
                             </section>
                         )
                     }

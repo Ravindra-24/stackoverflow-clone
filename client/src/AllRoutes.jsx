@@ -27,7 +27,8 @@ const location = useLocation()
     <ToastContainer/>
         <LoadingBar
           // className="loading-bar"
-          color="#009dff"
+          color="#00CED1"
+          background=''
           height={4}
           shadow={true}
           progress={progress}
@@ -38,14 +39,14 @@ const location = useLocation()
           onLoaderFinished={() => setProgress(0)}
         />
     <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route path='/Auth' element={<Auth/>}/>
-        <Route path='/Questions' element={<Questions/>}/>
-        <Route path='/AskQuestion' element={<AskQuestion/>}/>
-        <Route path='/Questions/:id' element={<DisplayQuestion/>}/>
-        <Route path='/Tags' element={<Tags/>}/>
-        <Route path='/Users' element={<Users/>}/>
-        <Route path='/Users/:id' element={<UserProfile/>}/>
+        <Route path="/" element={<Home />}/>
+        <Route path='/Auth' element={<Auth setProgress={setProgress}/>}/>
+        <Route path='/Questions' element={<Questions setProgress={setProgress}/>}/>
+        <Route path='/AskQuestion' element={<AskQuestion setProgress={setProgress}/>}/>
+        <Route path='/Questions/:id' element={<DisplayQuestion setProgress={setProgress}/>}/>
+        <Route path='/Tags' element={<Tags setProgress={setProgress}/>}/>
+        <Route path='/Users' element={<Users setProgress={setProgress}/>}/>
+        <Route path='/Users/:id' element={<UserProfile setProgress={setProgress}/>}/>
     </Routes>
     </>
   )

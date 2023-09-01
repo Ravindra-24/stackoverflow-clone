@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import Avatar from '../../components/Avatar/Avatar'
 import {deleteAnswer} from '../../actions/question'
 
-const DisplayAnswer = ({question, handleShare}) => {
+const DisplayAnswer = ({question, handleShare, setProgress}) => {
 
   const User = useSelector((state) => (state.currentUserReducer))
   const dispatch = useDispatch()
   const { id} = useParams()
   const handleDelete = (answerId, noOfAnswers) => {
-    dispatch(deleteAnswer(id, answerId, noOfAnswers - 1))
+    dispatch(deleteAnswer(id, answerId, noOfAnswers - 1, setProgress))
   }
   return (
     <div>
