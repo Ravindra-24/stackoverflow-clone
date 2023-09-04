@@ -86,7 +86,7 @@ const HomeMainbar = () => {
       <div>
         {
           questionsList.data === null ?
-          <p>Loading...</p> :
+          <p>Please be Petions server is slow, it will take about max 1 min to retrieve the data</p> :
           <>
           <p>{questionsList.data.length} Questions</p>
           <QuestionList questionsList={questionsList.data}/>

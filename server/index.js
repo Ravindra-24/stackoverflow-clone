@@ -22,7 +22,7 @@ app.use('/questions', questionRoutes)
 app.use('/answer', answerRoutes)
 
 app.get('/keep-alive-endpoint', (req, res) => {
-    res.status(200).send('OK');
+    res.status(200).json({ message: 'Server Running...' });
 })
 
 const PORT = process.env.PORT || 8081
