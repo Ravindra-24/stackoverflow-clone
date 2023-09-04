@@ -7,7 +7,7 @@ const API = axios.create({ baseURL: process.env.REACT_APP_API_BASE_URL });
 
 // Send a GET request to your server's keep-alive endpoint every 5 minutes (300,000 milliseconds)
 setInterval(() => {
-  API.get('/keep-alive-endpoint') // Replace with your server's actual endpoint
+  API.get("/questions/get") // Replace with your server's actual endpoint
     .then(response => {
       if (response.status !== 200) {
         console.error('Keep-alive request failed:', response.status, response.statusText);
