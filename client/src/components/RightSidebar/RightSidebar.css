@@ -67,3 +67,49 @@
     border-radius: 2px;
     font-size: 13px;
 }
+
+@media screen and (max-width: 900px) {
+    .right-sidebar {
+        float: none;
+        width: 100%;
+        margin: 0;
+    }
+
+    .widget {
+        margin-top: 10px;
+    }
+
+    .widget h4 {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    
+
+    .right-sidebar-div-1 .right-sidebar-div-2 {
+        justify-content: left;
+        align-items: center;
+    }
+
+    .right-sidebar-div-1 .right-sidebar-div-2 p {
+        padding-left: 0;
+        margin-top: 10px;
+        margin-left: 5px;
+        font-size: 12px;
+    }
+
+    .widget-tags {
+        margin-top: 20px;
+        box-shadow: none;
+    }
+
+    .widget-tags h4 {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    .widget-tags-div p {
+        padding: 3px;
+        font-size: 12px;
+    }
+}

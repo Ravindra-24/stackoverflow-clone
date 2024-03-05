@@ -10,6 +10,11 @@
     padding-bottom: 20px;
     border-bottom: solid 1px rgba(0, 0, 0, 0.112);
 }
+
+.question-details-container h1{
+    font-size: 1.4em;
+}
+
 .question-details-container-2{
     display: flex;
 }
@@ -121,4 +126,80 @@
     font-size: 14px;
     line-height: 18px;
     white-space: pre-line;
+}
+
+@media screen and (max-width: 768px) {
+    .question-details-page {
+        width: 100%;
+        margin-left: 10px;
+    }
+    .question-details-page {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .question-details-container {
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+    }
+    
+    .question-details-container-2 {
+        flex-direction: column;
+    }
+    
+    .question-votes {
+        padding: 5px 10px;
+    }
+    
+    .votes-icon {
+        font-size: 30px;
+    }
+    
+    .question-details-container .question-body {
+        line-height: 18px;
+    }
+    
+    .question-details-container .question-details-tags p,
+    .post-ans-container p .ans-tags {
+        padding: 3px;
+        margin: 2px;
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+    .question-actions-user {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .question-actions-user button,
+    .edit-question-btn {
+        margin: 5px 0;
+        font-size: 12px;
+    }
+    
+    .question-actions-user div:nth-child(2) p,
+    .question-actions-user div:nth-child(2) .user-link {
+        font-size: 12px;
+    }
+    
+    .user-link div {
+        padding-left: 5px;
+    }
+    
+    .post-ans-container form textarea {
+        padding: 5px;
+        width: 100%;
+    }
+    
+    .post-ans-container form .post-ans-btn {
+        margin: 10px 0;
+        padding: 5px;
+        font-size: 12px;
+    }
+    
+    .display-ans p {
+        font-size: 12px;
+        line-height: 16px;
+    }
 }

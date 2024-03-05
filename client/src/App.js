@@ -6,6 +6,8 @@ import AllRoutes from './AllRoutes'
 import './App.css';
 import { fetchAllQuestions } from "./actions/question";
 import { fetchAllUsers } from "./actions/users";
+import { ModalProvider } from "./hoc/ModalContext";
+import LeftSideBarModal from "./components/LeftSidebar/LeftSideBarModal";
 
 
 
@@ -22,10 +24,13 @@ function App() {
 
   return (
     <div className="App">
+    <ModalProvider>
     <Router>
+      <LeftSideBarModal/>
       <Navbar/>
       <AllRoutes/>
     </Router>
+    </ModalProvider>
     </div>
   );
 }

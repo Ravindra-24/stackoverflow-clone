@@ -5,6 +5,7 @@ import moment from 'moment'
 const Questions = ({question}) => {
   return (
     <div className='display-question-container'>
+      <div className='votes-ans'>
         <div className='display-votes-ans'>
             <p>{question.upVote.length - question.downVote.length}</p>
             <p>votes</p>
@@ -12,6 +13,7 @@ const Questions = ({question}) => {
         <div className='display-votes-ans'>
           <p>{question.noOfAnswers}</p>
           <p>answers</p>
+        </div>
         </div>
         <div className='display-question-details'>
           <Link to={`/Questions/${question._id}`} className='question-title-link'>{question.questionTitle}</Link>

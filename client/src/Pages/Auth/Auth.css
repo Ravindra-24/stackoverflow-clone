@@ -93,3 +93,18 @@ margin-top: 10px;
     font-size: 13px;
     cursor: pointer;
 }
+
+
+@media screen and (max-width: 768px) {
+    .auth-section {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+    .auth-container-1 {
+        margin-right: 0px;
+    }
+    .auth-container-2 {
+        margin-top: 20px;
+    }
+    
+}
