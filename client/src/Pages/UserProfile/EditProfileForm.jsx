@@ -4,8 +4,8 @@ import {updateProfile} from '../../actions/users'
 
 const EditProfileForm = ({currentUser, setSwitch}) => {
 
-    const [name, setName] = useState(currentUser?.result?.name);
-    const [about, setAbout] = useState(currentUser?.result?.about);
+    const [name, setName] = useState(currentUser?.result?.name || "");
+    const [about, setAbout] = useState(currentUser?.result?.about || "");
     const [tags, setTags] = useState('');
     const dispatch = useDispatch()
     
@@ -13,9 +13,13 @@ const EditProfileForm = ({currentUser, setSwitch}) => {
     const handleSubmit = (e) => {
       e.preventDefault()
       if(tags.length === 0){
-        dispatch(updateProfile(currentUser?.result?._id, {name, about, tags: currentUser?.result?.tags}))
+        dispatch(updateProfile(currentUser?.result?._id, {name, about, tags: currentUser?.result?.tags || []}))
       }else {
-        dispatch(updateProfile(currentUser?.result?._id, {name, about, tags}))
+        const normalizedTags = tags
+          .split(" ")
+          .map((tag) => tag.trim().toLowerCase())
+          .filter(Boolean);
+        dispatch(updateProfile(currentUser?.result?._id, {name, about, tags: normalizedTags}))
       }
       setSwitch(false)
     }

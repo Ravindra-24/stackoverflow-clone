@@ -1,5 +1,5 @@
-import React,{useContext, useEffect} from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React,{useContext, useEffect, useState, useCallback} from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import './Navbar.css'
 import decode from 'jwt-decode'
@@ -15,25 +15,50 @@ const Navbar = () => {
   const {openModal, closeModal} = useContext(ModalContext);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const location = useLocation()
+  const [searchTerm, setSearchTerm] = useState("")
     var User = useSelector((state)=>(state.currentUserReducer))
 
-    const handleLogout = () => {
+  const handleLogout = useCallback(() => {
         dispatch({type:'LOGOUT'})
         navigate('/')
         dispatch(setCurrentUser(null))
-    }
+    }, [dispatch, navigate]);
 
     useEffect(() => {
-      const token = User?.token
+      dispatch(setCurrentUser(JSON.parse(localStorage.getItem('profile'))))
+    }, [dispatch]);
+
+    useEffect(() => {
+      const token = User?.token;
       if(token){
         const decodedToken = decode(token);
         if(decodedToken.exp * 1000 < new Date().getTime()){
           handleLogout();
         }
       }
-      dispatch(setCurrentUser(JSON.parse(localStorage.getItem('profile'))))
+    }, [User?.token, handleLogout]);
 
-    }, [dispatch]);
+    useEffect(() => {
+      if (location.pathname === "/Questions") {
+        const searchParams = new URLSearchParams(location.search);
+        setSearchTerm(searchParams.get("q") || "");
+      } else {
+        setSearchTerm("");
+      }
+    }, [location.pathname, location.search]);
+
+    const handleSearchSubmit = (e) => {
+      e.preventDefault();
+      const query = searchTerm.trim();
+      const searchParams = new URLSearchParams();
+      if (query) {
+        searchParams.set("q", query);
+      }
+      searchParams.set("page", "1");
+      navigate(`/Questions?${searchParams.toString()}`);
+      closeModal();
+    };
 
   return (
     <nav className='main-nav'>
@@ -48,8 +73,14 @@ const Navbar = () => {
         <Link to="/" className='nav-item nav-btn'>Product</Link>
         <Link to="/" className='nav-item nav-btn'>For Teams</Link>
 
-        <form>
-            <input type='text' placeholder='Search...'></input>
+        <form onSubmit={handleSearchSubmit}>
+            <input
+              type='text'
+              placeholder='Search questions, users, tags...'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              aria-label="Search questions"
+            />
             <img src={search} alt='search' className='search-icon' width={18} height={20}/>
         </form> 
         <div className='nav-avatar-container'>
@@ -57,7 +88,7 @@ const Navbar = () => {
             <Link to='/Auth' className='nav-item nav-link' >Log In</Link> :
              <>
              <Avatar backgroundColor="#009dff" py="5px" px="10px" borderRadius="50%" color='white' cursor="pointer"><Link to={`/Users/${User?.result?._id}`} style={{color:'white', textDecoration:"none"}}>{User?.result?.name.charAt(0).toUpperCase()}</Link></Avatar>
-             <button className='nav-item nav-link' onClick={handleLogout}>Log Out</button>
+             <button type='button' className='nav-item nav-link' onClick={handleLogout}>Log Out</button>
              </>
         }
         </div>

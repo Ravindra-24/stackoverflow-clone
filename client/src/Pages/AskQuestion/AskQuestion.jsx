@@ -18,13 +18,35 @@ const AskQuestion = ({setProgress}) => {
 
   const handleSubmit = (e)=> {
       e.preventDefault()
-      dispatch(askQuestion({questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User?.result?._id}, navigate, setProgress))
-  }
+      if (!User?.result?._id) {
+        alert("login or signup to ask questions");
+        navigate("/Auth");
+        return;
+      }
 
-  const handleEnter = (e) => {
-    if(e.key === 'Enter'){
-      setQuestionBody(questionBody + '\n')
-    }
+      const normalizedTags = questionTags
+        .split(" ")
+        .map((tag) => tag.trim().toLowerCase())
+        .filter(Boolean)
+        .slice(0, 5);
+
+      if (!questionTitle.trim() || !questionBody.trim() || normalizedTags.length === 0) {
+        alert("Please add title, body and at least one tag");
+        return;
+      }
+
+      dispatch(
+        askQuestion(
+          {
+            questionTitle,
+            questionBody,
+            questionTags: normalizedTags,
+            userPosted: User.result.name,
+          },
+          navigate,
+          setProgress
+        )
+      )
   }
 
   return (
@@ -41,12 +63,12 @@ const AskQuestion = ({setProgress}) => {
                 <label htmlFor="ask-ques-body">
                     <h4>Body</h4>
                     <p>Include all the information someone would need to answer your question</p>
-                    <textarea cols="30" rows="10" type="text" onChange={(e)=>{setQuestionBody(e.target.value)}} onKeyPress={handleEnter} id="ask-ques-body"/>
+                    <textarea cols="30" rows="10" type="text" onChange={(e)=>{setQuestionBody(e.target.value)}} id="ask-ques-body"/>
                 </label>
                 <label htmlFor="ask-ques-tags">
                 <h4>Tags</h4>
                             <p>Add up to 5 tags to describe what your question is about</p>
-                    <input type="text" id="ask-ques-tags" onChange={(e)=>{setQuestionTags(e.target.value.split(' '))}} placeholder='e.g. (xml typescript wordpress)'/>
+                    <input type="text" id="ask-ques-tags" onChange={(e)=>{setQuestionTags(e.target.value)}} placeholder='e.g. (xml typescript wordpress)'/>
                 </label>
             </div>
             <input type="submit" value='Review your question' className="review-btn"/>

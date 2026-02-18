@@ -2,94 +2,126 @@
 import { toast } from 'react-toastify'
 import * as api from '../api'
 
+const setSafeProgress = (setProgress, value) => {
+  if (typeof setProgress === "function") {
+    setProgress(value);
+  }
+};
+
 export const askQuestion = (questionData, navigate,setProgress) => async(dispatch) => {
   try {
-    setProgress(30)
+    setSafeProgress(setProgress, 30)
     const {data} = await api.postQuestion(questionData)
-    setProgress(50)
+    setSafeProgress(setProgress, 50)
     dispatch({type: "POST_QUESTION", payload: data})
-    setProgress(70)
+    setSafeProgress(setProgress, 70)
     dispatch(fetchAllQuestions())
     toast.success('Question posted successfully')
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
     navigate('/')
   } catch (error) {
-    toast.error('Error posting question')
+    toast.error(error?.response?.data?.message || 'Error posting question')
     console.log(error)
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
   }
   
 }
 
 
-export const fetchAllQuestions = () => async(dispatch) =>{
+export const fetchAllQuestions = (params = {}) => async(dispatch) =>{
   try {
-    const {data} = await api.getAllQuestions()
-    dispatch({ type:'FETCH_ALL_QUESTIONS', payload: data })
+    const {data} = await api.getAllQuestions(params)
+    const payload = Array.isArray(data)
+      ? {
+          items: data,
+          total: data.length,
+          page: 1,
+          limit: data.length || 10,
+          totalPages: 1,
+          hasNextPage: false,
+          hasPrevPage: false,
+          filters: { q: "", tag: "", sort: "newest" },
+        }
+      : data;
+
+    dispatch({ type:'FETCH_ALL_QUESTIONS', payload })
   } catch (error) {
     toast.error('Error fetching questions')
     console.log(error)
   }
 }
 
+export const fetchQuestionStats = () => async (dispatch) => {
+  try {
+    const { data } = await api.getQuestionStats();
+    dispatch({ type: "FETCH_QUESTION_STATS", payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchQuestionById = async (id) => {
+  const { data } = await api.getQuestionById(id);
+  return data;
+};
+
 export const deleteQuestion = (id, navigate, setProgress) => async(dispatch) => {
   try {
-    setProgress(30)
-     const {data} = api.deleteQuestion(id)
-    setProgress(50)
+    setSafeProgress(setProgress, 30)
+    await api.deleteQuestion(id)
+    setSafeProgress(setProgress, 50)
     dispatch(fetchAllQuestions())
-    setProgress(70)
+    setSafeProgress(setProgress, 70)
     toast.success('Question deleted successfully')
     navigate('/')
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
   } catch (error) {
-    toast.error('Error deleting question')
+    toast.error(error?.response?.data?.message || 'Error deleting question')
     console.log(error )
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
   }
 }
 
-export const voteQuestion = (id, Value, userId) => async(dispatch)=>{
+export const voteQuestion = (id, value) => async(dispatch)=>{
   try {
-    const {data}= await api.voteQuestion(id, Value, userId)
+    await api.voteQuestion(id, value)
     dispatch(fetchAllQuestions())
-    toast.success('Voted successfully')
   } catch (error) {
-    toast.error('Error voting')
+    toast.error(error?.response?.data?.message || 'Error voting')
     console.log(error)
   }
 }
 
 export const postAnswer = (answerData,setProgress) => async(dispatch) => {
   try {
-      setProgress(30)
-      const {id, noOfAnswers, answerBody, userAnswered, userId} = answerData
-      const {data} = await api.postAnswer(id, noOfAnswers, answerBody, userAnswered, userId)
-      setProgress(50)
+      setSafeProgress(setProgress, 30)
+      const {id, answerBody, userAnswered} = answerData
+      const {data} = await api.postAnswer(id, answerBody, userAnswered)
+      setSafeProgress(setProgress, 50)
       dispatch({type:'POST_ANSWER', payload: data})
-      setProgress(70)
+      setSafeProgress(setProgress, 70)
       dispatch(fetchAllQuestions())
       toast.success('Answer posted successfully')
-      setProgress(100)
+      setSafeProgress(setProgress, 100)
     } catch (error) {
-      toast.error('Error posting answer')
+      toast.error(error?.response?.data?.message || 'Error posting answer')
       console.log(error)
-      setProgress(100)
+      setSafeProgress(setProgress, 100)
   }
 }
 
-export const deleteAnswer = (id, answerId, noOfAnswers, setProgress) => async(dispatch) => {
+export const deleteAnswer = (id, answerId, setProgress) => async(dispatch) => {
   try {
-    setProgress(30)
-    const {data} = await api.deleteAnswer(id, answerId, noOfAnswers)
-    setProgress(50)
+    setSafeProgress(setProgress, 30)
+    await api.deleteAnswer(id, answerId)
+    setSafeProgress(setProgress, 50)
     dispatch(fetchAllQuestions())
-    setProgress(70)
+    setSafeProgress(setProgress, 70)
     toast.success('Answer deleted successfully')
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
   } catch (error) {
-    toast.error('Error deleting answer')
+    toast.error(error?.response?.data?.message || 'Error deleting answer')
     console.log(error)
-    setProgress(100)
+    setSafeProgress(setProgress, 100)
   }
 }

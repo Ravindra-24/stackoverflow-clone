@@ -6,6 +6,9 @@ import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 
+const navLinkClass = ({ isActive }) =>
+  `side-nav-links1${isActive ? " active" : ""}`;
+
 const LeftSideBarModal = () => {
   const { isModalOpen, closeModal } = useContext(ModalContext);
 
@@ -22,8 +25,8 @@ const LeftSideBarModal = () => {
               <nav className="side-nav1">
                 <NavLink
                   to="/"
-                  className="side-nav-links1"
-                  activeClassName="active"
+                  className={navLinkClass}
+                  end
                 >
                   <p onClick={closeModal}>Home</p>
                 </NavLink>
@@ -31,14 +34,13 @@ const LeftSideBarModal = () => {
                   <div>
                     <p>PUBLIC</p>
                   </div>
-                  <NavLink to="/Questions" className="side-nav-links1" onClick={closeModal}>
+                  <NavLink to="/Questions" className={navLinkClass} onClick={closeModal}>
                     <img src={Globe} alt="Globe" />
                     <p style={{ paddingLeft: "10px" }}>Questions</p>
                   </NavLink>
                   <NavLink
                     to="/Tags"
-                    className="side-nav-links1"
-                    activeClassName="active"
+                    className={navLinkClass}
                     style={{ paddingLeft: "40px" }}
                     onClick={closeModal}
                   >
@@ -46,8 +48,7 @@ const LeftSideBarModal = () => {
                   </NavLink>
                   <NavLink
                     to="/Users"
-                    className="side-nav-links1"
-                    activeClassName="active"
+                    className={navLinkClass}
                     style={{ paddingLeft: "40px" }}
                     onClick={closeModal}
                   >

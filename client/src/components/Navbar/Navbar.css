@@ -1,13 +1,13 @@
 .main-nav {
-    min-height: 50px;
+    min-height: var(--top-nav-height);
     width: 100%;
-    margin: 0% auto;
+    margin: 0 auto;
     border-top: solid 3px #ef8236;
-    box-shadow: 0px 1px 5px #00000033; 
+    box-shadow: 0 1px 5px #00000033;
     position: fixed;
-    z-index: 5;
-    top: 0%;
-    left: 0%;
+    z-index: 20;
+    top: 0;
+    left: 0;
     background-color: #f8f9f9;
     display: flex;
     align-items: center;
@@ -16,29 +16,34 @@
 
 .navbar {
     height: 100%;
-    min-width: 85%;
+    width: min(1250px, 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 6px;
+    padding: 0 12px;
 }
 
 .nav-avatar-container{
     display: flex;
-    margin-left: 10px;
+    margin-left: 8px;
+    gap: 8px;
+    align-items: center;
 }
 
 .navbar .icon{
     display: none;
+    cursor: pointer;
 }
 
 .nav-logo {
-    padding: 5px 25px;
+    padding: 5px 14px;
 }
 
 .nav-item {
     font-weight: 500;
-    margin: 0px 3px;
-    font-size: small;
+    margin: 0 2px;
+    font-size: 0.8rem;
     text-decoration: none;
     color: rgb(69, 69, 69);
     transition: 0.2s;
@@ -46,22 +51,23 @@
 
 .nav-btn {
     cursor: pointer;
-    border-radius:20px ;
-    padding: 10px 20px;
+    border-radius:20px;
+    padding: 10px 14px;
+    white-space: nowrap;
 }
 
 .nav-item:hover {
-    background-color: rgb( 230, 230, 230 );
+    background-color: rgb(230, 230, 230);
 }
 
 .navbar form {
     flex-grow: 1;
-    padding: 0px 12px;
     position: relative;
+    min-width: 0;
 }
 
 .navbar form input {
-    min-width: 90%;
+    width: 100%;
     margin: 0;
     padding: 8px 10px 8px 32px;
     font-size: 13px;
@@ -72,12 +78,12 @@
 .navbar form .search-icon {
     position: absolute;
     top: 8px;
-    left: 25px;
+    left: 10px;
 }
 
 .nav-link {
     padding: 7px 13px;
-    border: solid 1px blue;
+    border: solid 1px #2f6fce;
     border-radius: 3px;
     background-color: #e7f8fe;
     cursor: pointer;
@@ -87,71 +93,33 @@
     background-color: #d3e4eb;
 }
 
-@media screen and (max-width: 768px) {
-    .main-nav {
-        min-height: 50px;
-        width: 100%;
-        margin: 0% auto;
-        border-top: solid 3px #ef8236;
-        box-shadow: 0px 1px 5px #00000033; 
-        position: fixed;
-        z-index: 5;
-        top: 0%;
-        left: 0%;
-        background-color: #f8f9f9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .navbar {
-        height: 100%;
-        min-width: 85%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .navbar .icon{
-        display: flex;
-        width: 30px;
-        height: 30px;
-    }
+@media screen and (max-width: 992px) {
     .nav-logo {
-        padding: 5px 25px;
+        display: none;
     }
-    .nav-item {
-        font-weight: 500;
-        margin: 0px 3px;
-        font-size: small;
-        text-decoration: none;
-        color: rgb(69, 69, 69);
-        transition: 0.2s;
-    }
-
-    
 
     .nav-btn {
         display: none;
     }
-    .nav-item:hover {
-        background-color: rgb( 230, 230, 230 );
-    }
-    .navbar form {
-        flex-grow: 1;
-        padding: 0px 12px;
-        position: relative;
-    }
-    .navbar form input {
-        min-width: 90%;
-        margin: 0;
-        padding: 8px 10px 8px 32px;
-        font-size: 13px;
-        border: solid 1px #0000003e;
-        border-radius:3px;
+}
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        padding: 0 10px;
     }
 
-    .nav-logo{
-        display: none;
+    .navbar .icon{
+        display: flex;
+        width: 28px;
+        height: 28px;
+        margin-right: 2px;
     }
-    
+
+    .nav-avatar-container {
+        margin-left: 4px;
+    }
+
+    .nav-link {
+        padding: 6px 10px;
+    }
 }

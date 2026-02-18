@@ -6,11 +6,12 @@
 .ask-ques-container{
     margin: auto;
     max-width: 1200px;
+    padding: 0 16px 24px;
 }
 
 .ask-ques-container h1{
     font-size: 1.5em;
-    padding: 80px 0px 20px 0px;
+    padding: 80px 0 20px;
 }
 
 .ask-ques-container form .ask-form-container{
@@ -37,7 +38,7 @@
     padding: 10px;
     border: solid 1px #0000003e;
     font-family: 'Roboto', sans-serif;
-    width: calc(100% - 20px);
+    width: 100%;
     resize: vertical;
 }
 
@@ -54,4 +55,24 @@
 
 .review-btn:hover{
     background-color: #0086d8;
+}
+
+@media screen and (max-width: 768px) {
+    .ask-ques-container {
+        padding: 0 12px 20px;
+    }
+
+    .ask-ques-container h1 {
+        font-size: 1.25rem;
+        padding-top: 70px;
+    }
+
+    .ask-ques-container form .ask-form-container {
+        padding: 14px;
+    }
+
+    .review-btn {
+        margin: 24px 0;
+        width: 100%;
+    }
 }

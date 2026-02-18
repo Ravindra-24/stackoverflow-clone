@@ -18,15 +18,17 @@ const Auth = ({setProgress}) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault()
-    setLoading(true)
-    if(!email && !password){
+    if(!email || !password || (isSignup && !name)){
       toast.error('Please fill all the fields')
-    }else if(isSignup){
-    dispatch(signup({name, email, password},navigate, setProgress, setLoading))
-  }else{
-    dispatch(login({email, password},navigate, setProgress, setLoading))
+      return;
+    }
+    setLoading(true)
+    if(isSignup){
+      dispatch(signup({name, email, password},navigate, setProgress, setLoading))
+    }else{
+      dispatch(login({email, password},navigate, setProgress, setLoading))
+    }
   }
-}
 
   const handleSwitch = ()=> {
     setIsSignup(!isSignup)
@@ -42,7 +44,7 @@ const Auth = ({setProgress}) => {
             isSignup &&  (
             <label htmlFor='name'>
               <h4>Name</h4>
-              <input type='name' name='name' id='name' required onChange={(e)=>{setName(e.target.value)}}></input>
+              <input type='text' name='name' id='name' required onChange={(e)=>{setName(e.target.value)}}></input>
             </label>
             )
           }
@@ -107,7 +109,7 @@ const Auth = ({setProgress}) => {
         </form>
         <p>
           {isSignup ? "Already have an account?" : "Don't have an account?"}
-          <button type='submit' className='handle-switch-btn' onClick={handleSwitch}>{isSignup ? "Login" : "Sign Up"}</button>
+          <button type='button' className='handle-switch-btn' onClick={handleSwitch}>{isSignup ? "Login" : "Sign Up"}</button>
         </p>
       </div>
     </section>

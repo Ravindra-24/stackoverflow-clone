@@ -14,7 +14,7 @@ export const signup = (authData, navigate,setProgress, setLoading) => async (dis
         setProgress(100)
         navigate('/')
     } catch (error) {
-        toast.error(error.response.data.message)
+        toast.error(error?.response?.data?.message || "Signup failed")
         console.log(error)
         setProgress(100)
     }finally{
@@ -22,7 +22,7 @@ export const signup = (authData, navigate,setProgress, setLoading) => async (dis
     }
 }
 
-export const login = (authData, navigate,setProgress, serLoading) => async (dispatch) => {
+export const login = (authData, navigate,setProgress, setLoading) => async (dispatch) => {
     try {
         setProgress(40)
         const {data} = await api.logIn(authData)
@@ -34,10 +34,10 @@ export const login = (authData, navigate,setProgress, serLoading) => async (disp
         toast.success('Logged in successfully')
         navigate('/')
     } catch (error) {
-        toast.error(error.response.data.message)
+        toast.error(error?.response?.data?.message || "Login failed")
         console.log(error)
         setProgress(100)
     }finally{
-        serLoading(false)
+        setLoading(false)
     }
 }

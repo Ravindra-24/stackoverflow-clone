@@ -7,7 +7,7 @@ const DisplayQuestion = ({setProgress}) => {
   return (
     <div className="home-container-1">
       <LeftSidebar />
-      <div className="home-container-2">
+      <div className="home-container-2 home-with-right-sidebar">
         <QuestionsDetails setProgress={setProgress}/>
         <RightSidebar />
       </div>

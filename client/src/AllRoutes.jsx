@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {Routes, Route, useLocation} from 'react-router-dom'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css'
 import LoadingBar from 'react-top-loading-bar'
 import Home from './Pages/Home/Home'

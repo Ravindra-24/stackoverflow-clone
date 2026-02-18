@@ -11,8 +11,8 @@ const DisplayAnswer = ({question, handleShare, setProgress}) => {
   const User = useSelector((state) => (state.currentUserReducer))
   const dispatch = useDispatch()
   const { id} = useParams()
-  const handleDelete = (answerId, noOfAnswers) => {
-    dispatch(deleteAnswer(id, answerId, noOfAnswers - 1, setProgress))
+  const handleDelete = (answerId) => {
+    dispatch(deleteAnswer(id, answerId, setProgress))
   }
   return (
     <div>
@@ -24,8 +24,8 @@ const DisplayAnswer = ({question, handleShare, setProgress}) => {
                     <div>
                         <button type='button' onClick={handleShare}>Share</button>
                         {
-                             User?.result?._id === ans?.userId && (
-                             <button type='button' onClick={()=>handleDelete(ans._id,question.noOfAnswers)}>Delete</button>
+                             (User?.result?._id === ans?.userId || User?.result?._id === question?.userId) && (
+                             <button type='button' onClick={()=>handleDelete(ans._id)}>Delete</button>
                              ) 
                         }
                     </div>

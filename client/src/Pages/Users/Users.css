@@ -1,3 +1,8 @@
+.users-page{
+    display: block;
+    margin-top: 24px;
+}
+
 .user-list-container{
     padding: 30px 0px;
     display: grid;
@@ -21,4 +26,15 @@
 
 .user-profile-link h5{
     margin: 0px 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .users-page {
+        margin-top: 8px;
+    }
+
+    .user-list-container {
+        padding: 16px 0;
+        gap: 16px;
+    }
 }

@@ -28,6 +28,10 @@ const [Switch, setSwitch] = useState(false);
       <LeftSidebar/>
       <div className="home-container-2">
         <section>
+            {!currentProfile ? (
+              <p>User not found.</p>
+            ) : (
+              <>
             <div className="user-details-container">
                 <div className="user-details">
                     <Avatar backgroundColor="purple" color="white" fontSize="50px" px="40px" py="30px" >
@@ -39,14 +43,13 @@ const [Switch, setSwitch] = useState(false);
                     </div>
                 </div>
                 {
-                  currentUser?.result._id === id && (
+                  currentUser?.result?._id === id && (
                     <button type='button' onClick={()=> setSwitch(true)} className='edit-profile-btn'>
                       <FontAwesomeIcon icon={faPen} /> Edit Profile
                     </button>
                   )
                 }
             </div>
-            <>
               {
                 Switch ? (
                     <EditProfileForm currentUser={currentUser} setSwitch={setSwitch}/>
@@ -54,7 +57,8 @@ const [Switch, setSwitch] = useState(false);
                 <ProfileBio  currentProfile={currentProfile}/>
                 )
               }
-            </>
+              </>
+            )}
         </section>
       </div>
     </div>
